@@ -1,0 +1,40 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### Eclipse ###
+
+.metadata
+bin/
+tmp/
+*.tmp
+*log*.gz
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+### mcpki.org
+
+*.p12
+*.jks
+*.pem
+*.log
+*.vscode
+*.old
+.mvn
+.target
+
+application.properties
+application-dev.properties
