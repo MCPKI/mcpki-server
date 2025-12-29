@@ -5,6 +5,9 @@ on:
     branches:
     - dev
 
+env:
+  SPRING_PROFILES_ACTIVE: application-github-build
+
 permissions:
     contents: read
     checks: write
@@ -33,4 +36,4 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: export SPRING_PROFILES_ACTIVE=dev mvn --batch-mode clean test
+        run: mvn --batch-mode clean test
