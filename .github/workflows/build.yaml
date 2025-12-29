@@ -1,8 +1,9 @@
 name: mcpki-server dev build
 
-on: push:
-  branches:
-  - dev
+on:
+  push:
+    branches:
+    - dev
 
 permissions:
     contents: read
