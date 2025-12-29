@@ -12,7 +12,7 @@
 
 	<groupId>com.mcpki</groupId>
 	<artifactId>mcpki-server</artifactId>
-	<version>0.6.0</version>
+	<version>0.7.0</version>
 	<inceptionYear>2025</inceptionYear>
 	<organization>
 		<name>mcpki.org</name>
@@ -39,7 +39,7 @@
 
 	<properties>
 		<bouncy.castle.version>1.81</bouncy.castle.version>
-		<org.springframework.ai.version>1.0.0</org.springframework.ai.version>
+		<org.springframework.ai.version>1.1.2</org.springframework.ai.version>
 		<org.apache.httpcomponents.version>4.5.14</org.apache.httpcomponents.version>
 		<com.googlecode.json-simple.version>1.1.1</com.googlecode.json-simple.version>
 		<commons-io.version>2.20.0</commons-io.version>
