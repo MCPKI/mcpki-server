@@ -6,7 +6,7 @@ on:
     - dev
 
 env:
-  SPRING_PROFILES_ACTIVE: application-github-build
+  SPRING_PROFILES_ACTIVE: github-build
 
 permissions:
     contents: read
