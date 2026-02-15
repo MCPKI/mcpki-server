@@ -15,6 +15,7 @@ MCPKI (Model Context Public Key Infrastructure) enables autonomous certificate m
   - [Configure n8n](#configure-n8n)
 - [Use with chat clients](#use-with-chat-clients)
   - [Configure LibreChat](#configure-librechat)
+- [Access mcpki-server-programmatically](#access-mcpki-server-programmatically)
 - [API Endpoints](#api-endpoints)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -215,9 +216,30 @@ or in the Agent Builder Add MCP Server Tools dialog.
 
 ![LibreChat MCP Tools Menu](https://www.mcpki.org/img/LibreChat-agent-builder-MCP-tools.png)
 
-## Programatical Usage
+## Access mcpki-server programmatically
 
-See MCPKI client.
+### Node.js and mcporter
+
+Use [Node.js](https://nodejs.org/en), [npx](https://docs.npmjs.com/cli/v8/commands/npx) and [mcporter](https://github.com/steipete/mcporter) to register mcpki-server.
+```
+npx mcporter config add mcpki-server https://mcpki.org:12121/sse
+```
+Check that the registration as successful and the server is active.
+```
+npx mcporter list
+```
+Or list the MCP tools and its parameters.
+```
+npx mcporter list --http-url https://mcpki.org:12121/sse
+```
+Call any MCP tool like this.
+```
+npx mcporter call mcpki-server.get_ca_certificate subject_dn="CN=mcpki-prime256-sub-ca,O=mcpki.org"
+```
+Or this.
+```
+npx mcporter call mcpki-server.get_available_cas external:false
+```
 
 ## API Endpoints
 
