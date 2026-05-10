@@ -116,7 +116,7 @@ public class RevokeCertificate {
 			return response;
 		} catch (RestClientException e) {
 			if (log.isDebugEnabled()) {
-				log.debug("Could not revoked certificate with SN {} issued by {} with revocation reason {}: {}",
+				log.debug("Could not revoke certificate with SN {} issued by {} with revocation reason {}: {}",
 						serial_number, issuer_dn, revocation_reason, e.getMessage());
 			}
 			return new RevokeCertificateResponse(false, issuer_dn, serial_number, null, revocation_reason,
