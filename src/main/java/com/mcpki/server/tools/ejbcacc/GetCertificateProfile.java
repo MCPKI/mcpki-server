@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -39,6 +40,7 @@ import com.mcpki.server.util.ValidationUtil;
  * MCP tool to get a certificate profile detail information.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetCertificateProfile", havingValue = "true", matchIfMissing = false)
 public class GetCertificateProfile {
 
 	private static final Logger log = LoggerFactory.getLogger(GetCertificateProfile.class);
@@ -62,9 +64,9 @@ public class GetCertificateProfile {
 	 * @param name the name
 	 * @return the certificate profile
 	 */
-	@Tool(name = "get_certificate_profile", description = "Get certificate profile.")
+	@McpTool(name = "get_certificate_profile", description = "Get certificate profile.")
 	public String ejbca_getCertificateProfile(
-			@ToolParam(description = "The name of the certificate profile.") final String name)
+			@McpToolParam(description = "The name of the certificate profile.") final String name)
 	{
 		ValidationUtil.assertValidName("certificateProfileName", name, nameMinLength, nameMaxLength);
 

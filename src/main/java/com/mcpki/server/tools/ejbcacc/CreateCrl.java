@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -40,6 +41,7 @@ import com.mcpki.server.util.ValidationUtil;
  * MCP tool to create a Certificate Revocation List (CRL) by an issuer.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.CreateCrl", havingValue = "true", matchIfMissing = false)
 public class CreateCrl {
 
 	private static final Logger log = LoggerFactory.getLogger(CreateCrl.class);
@@ -63,9 +65,9 @@ public class CreateCrl {
 	 * @param issuer_dn the issuer DN.
 	 * @return the CreateCrlResponse object.
 	 */
-	@Tool(name = "create_crl", description = "Create CRL.")
+	@McpTool(name = "create_crl", description = "Create CRL.")
 	public CreateCrlResponse ejbca_createCrl(
-			@ToolParam(description = "The subject DN of the issuing CA.") final String issuer_dn)
+			@McpToolParam(description = "The subject DN of the issuing CA.") final String issuer_dn)
 	{
 		ValidationUtil.assertValidIssuerDn(issuer_dn, dnMinLength, dnMaxLength);
 

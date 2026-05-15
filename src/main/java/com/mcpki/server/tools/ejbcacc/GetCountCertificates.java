@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
  * MCP tool to count the number of certificates.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetCountCertificates", havingValue = "true", matchIfMissing = false)
 public class GetCountCertificates {
 
 	private static final Logger log = LoggerFactory.getLogger(GetCountCertificates.class);
@@ -54,9 +56,9 @@ public class GetCountCertificates {
 	 * @param active true if an active certificates should be counted only.
 	 * @return the number of certificates.
 	 */
-	@Tool(name = "get_count_certificates", description = "Counts the certificates.")
+	@McpTool(name = "get_count_certificates", description = "Counts the certificates.")
 	public String ejbca_getCountCertificates(
-			@ToolParam(description = "True for active certificates only.") boolean active)
+			@McpToolParam(description = "True for active certificates only.") boolean active)
 	{
 		final String url = baseUrl + "/v2/certificate/count?isActive=" + active;
 		if (log.isDebugEnabled()) {

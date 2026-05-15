@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
  * MCP tool to get the list of certificates about to expire.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetCertificatesAboutToExpire", havingValue = "true", matchIfMissing = false)
 public class GetCertificatesAboutToExpire {
 
 	private static final Logger log = LoggerFactory.getLogger(GetCertificatesAboutToExpire.class);
@@ -57,11 +59,11 @@ public class GetCertificatesAboutToExpire {
 	 * @param max    the maximum number of results per page
 	 * @return the list certificates about to expire
 	 */
-	@Tool(name = "get_certificates_about_to_expire", description = "Get certificates about to expire.")
+	@McpTool(name = "get_certificates_about_to_expire", description = "Get certificates about to expire.")
 	public String ejbca_getCertificatesAboutToExpire(
-			@ToolParam(description = "Number of days until expiration.") int days,
-			@ToolParam(description = "List offset (often 0).") int offset,
-			@ToolParam(description = "Maximum number of items returned (max 100).") int max)
+			@McpToolParam(description = "Number of days until expiration.") int days,
+			@McpToolParam(description = "List offset (often 0).") int offset,
+			@McpToolParam(description = "Maximum number of items returned (max 100).") int max)
 	{
 		if (days < 0) {
 			days = 0;

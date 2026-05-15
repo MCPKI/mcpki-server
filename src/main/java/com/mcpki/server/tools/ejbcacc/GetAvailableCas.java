@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -38,6 +39,7 @@ import com.mcpki.server.util.McpUtil;
  * MCP tool to get a list of available Certification Authorities (CA).
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetAvailableCas", havingValue = "true", matchIfMissing = false)
 public class GetAvailableCas {
 
 	private static final Logger log = LoggerFactory.getLogger(GetAvailableCas.class);
@@ -55,9 +57,9 @@ public class GetAvailableCas {
 	 * @param external true if external CA are returned.
 	 * @return the list of available CAs.
 	 */
-	@Tool(name = "get_available_cas", description = "Get the list of available CAs.")
+	@McpTool(name = "get_available_cas", description = "Get the list of available CAs.")
 	public GetAvailableCasResponse ejbca_getCas(
-			@ToolParam(description = "True if external CAs a returned also.") final boolean external)
+			@McpToolParam(description = "True if external CAs a returned also.") final boolean external)
 	{
 		final String url = baseUrl + "/v1/ca?includeExternal=" + external;
 		try {

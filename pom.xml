@@ -12,7 +12,7 @@
 
 	<groupId>com.mcpki</groupId>
 	<artifactId>mcpki-server</artifactId>
-	<version>0.8.1</version>
+	<version>0.9.0</version>
 	<inceptionYear>2025</inceptionYear>
 	<organization>
 		<name>mcpki.org</name>

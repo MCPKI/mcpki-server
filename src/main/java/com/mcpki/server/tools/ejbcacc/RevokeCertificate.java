@@ -28,11 +28,12 @@ import java.util.TreeMap;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -46,6 +47,7 @@ import com.mcpki.server.util.ValidationUtil;
  * MCP tool to revoke a certificate.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.RevokeCertificate", havingValue = "true", matchIfMissing = false)
 public class RevokeCertificate {
 
 	private static final Logger log = LoggerFactory.getLogger(RevokeCertificate.class);
@@ -85,12 +87,12 @@ public class RevokeCertificate {
 	 * @return a confirmation message if the certificate has been revoked or an
 	 *         error message otherwise.
 	 */
-	@Tool(name = "revoke_certificate", description = "Revoked a certificate.")
+	@McpTool(name = "revoke_certificate", description = "Revoked a certificate.")
 	public RevokeCertificateResponse ejbca_revokeCertificate(
-			@ToolParam(description = "The issuer of the certificate.") String issuer_dn,
-			@ToolParam(description = "The certificate serial number in hex format.") String serial_number,
-			@ToolParam(description = "The certificate password.") String password,
-			@ToolParam(description = "The revocation reason.") String revocation_reason)
+			@McpToolParam(description = "The issuer of the certificate.") String issuer_dn,
+			@McpToolParam(description = "The certificate serial number in hex format.") String serial_number,
+			@McpToolParam(description = "The certificate password.") String password,
+			@McpToolParam(description = "The revocation reason.") String revocation_reason)
 	{
 		ValidationUtil.assertValidSerialNumberHex(serial_number, serialNumberLength);
 		ValidationUtil.assertValidIssuerDn(issuer_dn, dnMinLength, dnMaxLength);

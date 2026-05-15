@@ -26,11 +26,12 @@ import org.apache.tomcat.util.json.ParseException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -42,6 +43,7 @@ import com.mcpki.server.util.ValidationUtil;
  * MCP tool the get a CA certificate (chain).
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetCaCertificate", havingValue = "true", matchIfMissing = false)
 public class GetCaCertificate {
 
 	private static final Logger log = LoggerFactory.getLogger(GetCaCertificate.class);
@@ -66,9 +68,9 @@ public class GetCaCertificate {
 	 * @param subject_dn the subject DN of the issuing CA.
 	 * @return the CA certificate chain.
 	 */
-	@Tool(name = "get_ca_certificate", description = "Get CA certificate.")
+	@McpTool(name = "get_ca_certificate", description = "Get CA certificate.")
 	public GetCaCertificateResponse ejbca_getCaCertificate(
-			@ToolParam(description = "The subject DN of the CA certificate.") String subject_dn)
+			@McpToolParam(description = "The subject DN of the CA certificate.") String subject_dn)
 	{
 		ValidationUtil.assertValidIssuerDn(subject_dn, dnMinLength, dnMaxLength);
 

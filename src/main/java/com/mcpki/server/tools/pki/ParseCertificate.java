@@ -26,9 +26,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import com.mcpki.server.util.McpUtil;
@@ -38,6 +39,7 @@ import com.mcpki.server.util.ValidationUtil;
 import io.modelcontextprotocol.spec.McpError;
 
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.pki.ParseCertificate", havingValue = "true", matchIfMissing = false)
 public class ParseCertificate {
 
 	private static final Logger log = LoggerFactory.getLogger(ParseCertificate.class);
@@ -54,9 +56,9 @@ public class ParseCertificate {
 	 * @param issuerDn the issuer DN.
 	 * @return the certificate.
 	 */
-	@Tool(name = "parse_certificate", description = "Parses a certificate.")
+	@McpTool(name = "parse_certificate", description = "Parses a certificate.")
 	public String pki_parseCertificate(
-			@ToolParam(description = "The PEM formatted X.509 certificate.") final String certificate) throws McpError
+			@McpToolParam(description = "The PEM formatted X.509 certificate.") final String certificate) throws McpError
 	{
 		ValidationUtil.assertValidPem("certificate", certificate, pemMinStrength, pemMaxStrength);
 

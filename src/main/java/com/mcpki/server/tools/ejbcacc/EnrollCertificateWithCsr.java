@@ -27,11 +27,12 @@ import java.util.TreeMap;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -47,6 +48,7 @@ import com.mcpki.server.util.ValidationUtil;
  * MCP tool to enroll a certificate with a Certificate Signing Request (CSR).
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.EnrollCertificateWithCsr", havingValue = "true", matchIfMissing = false)
 public class EnrollCertificateWithCsr {
 
 	private static final Logger log = LoggerFactory.getLogger(EnrollCertificateWithCsr.class);
@@ -99,15 +101,15 @@ public class EnrollCertificateWithCsr {
 	 * @param email                    the user e-mail address.
 	 * @return the PEM formatted certificate.
 	 */
-	@Tool(name = "enroll_certificate_with_csr", description = "Enrolls a certificate given a CSR.")
+	@McpTool(name = "enroll_certificate_with_csr", description = "Enrolls a certificate given a CSR.")
 	public EnrollCertificateWithCsrResponse ejbca_enrollPkcs10(
-			@ToolParam(description = "Certificate Signing Request (CSR)") final String csr,
-			@ToolParam(description = "Name of the certificate profile.") final String certificate_profile_name,
-			@ToolParam(description = "Name of the end entity profile.") final String end_entity_profile_name,
-			@ToolParam(description = "Name of the issuing CA.") final String name_of_ca,
-			@ToolParam(description = "Name of the end entity.") final String username,
-			@ToolParam(description = "Password of the end entity.") final String password,
-			@ToolParam(description = "Email of the end entity.") final String email)
+			@McpToolParam(description = "Certificate Signing Request (CSR)") final String csr,
+			@McpToolParam(description = "Name of the certificate profile.") final String certificate_profile_name,
+			@McpToolParam(description = "Name of the end entity profile.") final String end_entity_profile_name,
+			@McpToolParam(description = "Name of the issuing CA.") final String name_of_ca,
+			@McpToolParam(description = "Name of the end entity.") final String username,
+			@McpToolParam(description = "Password of the end entity.") final String password,
+			@McpToolParam(description = "Email of the end entity.") final String email)
 	{
 		final String url = baseUrl + "/v1/certificate/pkcs10enroll";
 

@@ -23,11 +23,12 @@ package com.mcpki.server.tools.ejbcacc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
+import org.springaicommunity.mcp.annotation.McpTool;
+import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,6 +41,7 @@ import io.modelcontextprotocol.spec.McpError;
  * MPC Tool to get the latest CRL for an issuer.
  */
 @Service
+@ConditionalOnProperty(name = "com.mcpki.server.tools.ejbca.GetLatestCrl", havingValue = "true", matchIfMissing = false)
 public class GetLatestCrl {
 
 	private static final Logger log = LoggerFactory.getLogger(GetLatestCrl.class);
@@ -69,9 +71,9 @@ public class GetLatestCrl {
 	 * @param issuer_dn the issuer DN.
 	 * @return the CRL.
 	 */
-	@Tool(name = "get_latest_crl", description = "Get latest CRL.")
+	@McpTool(name = "get_latest_crl", description = "Get latest CRL.")
 	public GetLatestCrlResponse ejbca_getLatestCrl(
-			@ToolParam(description = "The subject DN of the issuing CA.") final String issuer_dn) throws McpError
+			@McpToolParam(description = "The subject DN of the issuing CA.") final String issuer_dn) throws McpError
 	{
 		ValidationUtil.assertValidIssuerDn(issuer_dn, dnMinLength, dnMaxLength);
 
