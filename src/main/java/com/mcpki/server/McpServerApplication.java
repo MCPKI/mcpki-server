@@ -26,46 +26,21 @@ import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class McpServerApplication {
-
-//	private static final Logger log = LoggerFactory.getLogger(McpServerApplication.class);
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetAvailableCas:false}")
-//	private boolean loadGetAvailableCas;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetCaCertificate:false}")
-//	private boolean loadGetCaCertificate;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.CreateCrl:false}")
-//	private boolean loadCreateCrl;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetLatestCrl:false}")
-//	private boolean loadGetLatestCrl;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetCountCertificates:false}")
-//	private boolean loadGetCountCertificates;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetCertificateProfile:false}")
-//	private boolean loadGetCertificateProfile;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.GetCertificatesAboutToExpire:false}")
-//	private boolean loadGetCertificatesAboutToExpire;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.EnrollCertificateWithCsr:false}")
-//	private boolean loadEnrollCertificateWithCsr;
-//
-//	@Value("${com.mcpki.server.tools.ejbca.RevokeCertificate:false}")
-//	private boolean loadRevokeCertificate;
-//
-//	@Value("${com.mcpki.server.tools.pki.ParseCertificate:false}")
-//	private boolean loadParseCertificate;
 
 	public static void main(String[] args)
 	{
 		Security.addProvider(new BouncyCastleProvider());
 		SpringApplication.run(McpServerApplication.class, args);
+	}
+	
+	@Bean
+	public RestTemplateBuilder restTemplateBuilder() {
+	    return new RestTemplateBuilder();
 	}
 
 }

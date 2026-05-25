@@ -21,9 +21,9 @@
 
 package com.mcpki.server.tools.ejbcacc;
 
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springaicommunity.mcp.annotation.McpTool;
@@ -93,7 +93,7 @@ public class GetCaCertificate {
 		// If the string can be parsed as JSON string, it should be an error, otherwise
 		// it is a string of the PEM encoded CA chain or a connection error.
 		try {
-			final JSONObject error = (JSONObject) new JSONParser(payload).parse();
+			final JSONObject error = (JSONObject) new JSONParser().parse(payload);
 			log.warn("Error: " + error.toJSONString());
 			return new GetCaCertificateResponse(null, "400", "CA certificate chain was found.");
 		} catch (ParseException e) {
