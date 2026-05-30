@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
+		<version>4.1.0-M3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.mcpki</groupId>
 	<artifactId>mcpki-server</artifactId>
-	<version>1.0.2</version>
+	<version>1.1.0</version>
 	<inceptionYear>2025</inceptionYear>
 	<organization>
 		<name>mcpki.org</name>
@@ -39,7 +39,7 @@
 
 	<properties>
 		<bouncy.castle.version>1.81</bouncy.castle.version>
-		<org.springframework.ai.version>1.1.7</org.springframework.ai.version>
+		<org.springframework.ai.version>2.0.0-M8</org.springframework.ai.version>
 		<org.apache.httpcomponents.version>4.5.14</org.apache.httpcomponents.version>
 		<com.googlecode.json-simple.version>1.1.1</com.googlecode.json-simple.version>
 		<commons-io.version>2.22.0</commons-io.version>
@@ -58,6 +58,21 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-restclient</artifactId>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jackson</artifactId>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.ai</groupId>
+		    <artifactId>spring-ai-autoconfigure-mcp-server-common</artifactId>
+		    <scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-mcp-server-webflux</artifactId>
